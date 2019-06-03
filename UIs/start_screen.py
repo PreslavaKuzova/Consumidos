@@ -29,7 +29,7 @@ class StartScreen:
     @staticmethod
     def main_colour_black_or_white(infile, numcolors=3, resize=150):
         #TODO find the colour and put this is the controller
-        mage = Image.open(infile)
+        image = Image.open(infile)
         image = image.resize((resize, resize))
         result = image.convert('P', palette=Image.ADAPTIVE, colors=numcolors)
         result.putalpha(0)
@@ -37,7 +37,7 @@ class StartScreen:
         print(colors)
         r = colors[0][1][0]
         g = colors[0][1][1]
-        b = colors[0][1][2]
+        b = colors[0][1][1]
         return ((r * 0.299) + (g * 0.587) + (b * 0.114)) > 186
     
     def config(self):
