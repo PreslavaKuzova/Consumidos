@@ -7,6 +7,7 @@ class EmailSender:
         server.login("consumidos.info@gmail.com", "presiilinalyudmi123")
         server.sendmail(
           "consumidos.info@gmail.com", 
+          #TODO : get receiver email from database
           "ilina.pavllova@gmail.com", 
           f"""\
 Subject: {text} """)
@@ -14,4 +15,5 @@ Subject: {text} """)
 
     @classmethod
     def send_reminder_email(cls, food):
+        #TODO : check if there is expiring food, then send email
         pass
