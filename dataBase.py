@@ -1,6 +1,5 @@
 from sqlalchemy import  select,Table, Column, Integer, String, Date, MetaData, ForeignKey, create_engine
-from time import strptime
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class DataBase:
     engine = create_engine('sqlite:///test.db', echo = False)
@@ -22,18 +21,19 @@ class DataBase:
         self.database.create_all(self.engine)
 
     def get_user_product(self, username):
+        list_to_be_returned = []
         username_to_get = (username,)
         expression = f"""SELECT products.product_name, products.expiry_date
             FROM products INNER JOIN authentification ON products.user_id == authentification.id
             WHERE authentification.username == ?;"""
         result = self.connection.execute(expression, username_to_get)
         for row in result:
-            print(row)
             now = datetime.now()
-            date_to_check = strptime(row[1], '%d-%m-%Y')
-            date_to_compare = strptime(now.strftime('%d-%m-%Y'),('%d-%m-%Y'))
-            if(date_to_check[2] - 1 == date_to_compare[2]):
-                print('Here\'s the daily e-mail: Your ' + row[0] + ' is going to expire tomorrow. Eat it!')
+            date_to_check = datetime.strptime(row[1], '%d-%m-%Y')
+            date_to_compare = datetime.strptime(now.strftime('%d-%m-%Y'),('%d-%m-%Y'))
+            if(date_to_check - timedelta(days=1) <= date_to_compare):
+                list_to_be_returned += row
+        return list_to_be_returned
 
     def login(self, username):
         username_to_get = (username,)
@@ -55,6 +55,12 @@ class DataBase:
             self.connection.execute(expression_for_insert, data_do_get)
         else:
             print("Username taken: Try again!")
+
+
+def main():
+    a = DataBase()
+
+    a.get_user_product('spiderjako')
 
 if __name__ == '__main__':
     main()
