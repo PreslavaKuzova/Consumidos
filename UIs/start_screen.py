@@ -1,18 +1,19 @@
 import shutil
 import requests
 from tkinter import *
-from utils.constants import *
 from PIL import Image, ImageTk
+from utils.constants import *
+from UIs.login_screen import LoginScreen
 
+class StartScreen(Frame):
+    def __init__(self, root):
+        Frame.__init__(self, root)
 
-class StartScreen:
-    def __init__(self):
         self.is_offline = False
         self.current_background = Images.current_image
         self.next_background = Images.next_image
 
-    def get_random_background(self):
-        #TODO put this in the controller
+        #gets random background, to be removed and added to the controller later
         url = 'https://source.unsplash.com/800x600/?food'
         try:
             response = requests.get(url, stream=True)
@@ -26,54 +27,39 @@ class StartScreen:
         except:
             self.is_offline = True
 
-    @staticmethod
-    def main_colour_black_or_white(infile, numcolors=3, resize=150):
-        #TODO find the colour and put this is the controller
-        mage = Image.open(infile)
-        image = image.resize((resize, resize))
-        result = image.convert('P', palette=Image.ADAPTIVE, colors=numcolors)
-        result.putalpha(0)
-        colors = result.getcolors(resize*resize)
-        print(colors)
-        r = colors[0][1][0]
-        g = colors[0][1][1]
-        b = colors[0][1][2]
-        return ((r * 0.299) + (g * 0.587) + (b * 0.114)) > 186
-    
-    def config(self):
-        self.get_random_background()
-        self.colour = self.main_colour_black_or_white(self.current_background)
-        print(self.colour)
-
-        start_screen = Tk()
-        start_screen.geometry(ScreenConstants.screen_size)
-        start_screen.resizable(False, False)
-        start_screen.wm_title('Consumidos')
+        # setting up the screen parameters
         
-        start_screen.wm_attributes('-alpha', 0.7)
+        root.geometry(ScreenConstants.screen_size)
+        root.resizable(False, False)
+        root.wm_title("Consumidos")
 
-        C = Canvas(start_screen, bg="blue", height=250, width=300)
-        filename = PhotoImage(file = self.current_background)
-        background_label = Label(start_screen, image=filename)
-        background_label.place(x=0, y=0, relwidth=1, relheight=1)
-
+        # set the background image of the screen
+        filename = PhotoImage(file = Images.current_image)
+        background_label = Label(root, image = filename)
         background = Label(image = filename)
         background.place(x=0, y=0, relwidth=1, relheight=1)
         
-        img = ImageTk.PhotoImage(Image.open(Images.logo))
-        panel = Label(image = img)
+        logo = ImageTk.PhotoImage(file = Images.logo)
+        panel = Label(image = logo)
         panel.grid(row = 0, column = 1)
+        panel.place(x = 230, y = 200)
 
-        log_in_button = Button(background, borderwidth = 0)
+        # log in button configuration
+        log_in_button = Button(text="hello", borderwidth = 0,
+                            command=lambda: self.open_login_screen())
         log_in_button.grid(row=1, column=1)
-        log_in_button.place(x = 340, y = 160)
-        img_log_in = PhotoImage(file = Images.log_in_button)
-        log_in_button.config(image = img_log_in)
+        log_in_button.place(x = 85, y = 450)
+        # img_log_in = PhotoImage(file = Images.log_in_button)
+        # log_in_button.config(image = img_log_in)
 
-        register_button = Button(start_screen, borderwidth = 0)
-        register_button.grid(row=2, column=1)
-        register_button.place(x = 340, y = 250)
-        img_register = PhotoImage(file = Images.register_button)
-        register_button.config(image = img_register)
+        # register button configuration
+        register_button = Button(text = 'hello1', borderwidth = 0, 
+                                command=lambda: self.open_login_screen())
+        register_button.grid(row=1, column=2)
+        register_button.place(x = 485, y = 450)
+        # img_register = PhotoImage(file = Images.register_button)
+        # register_button.config(image = img_register)
 
-        start_screen.mainloop()
+    def open_login_screen(self):
+        root = Toplevel()
+        login_screen = LoginScreen(root)

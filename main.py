@@ -1,10 +1,13 @@
-from UIs.start_screen import *
+from tkinter import *
+from UIs.start_screen import StartScreen
 
-class Application:
+class App:
     @classmethod
     def start(cls):
-        start_screen = StartScreen()
-        start_screen.config()
+        root = Tk()
+        app = StartScreen(root)
+        root.mainloop()
+        
 
 if __name__ == "__main__":
-    Application.start()
+    App.start()
