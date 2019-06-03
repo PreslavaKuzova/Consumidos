@@ -2,7 +2,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 from utils.constants import *
 
-class LoginScreen(Frame):
+class RegisterScreen(Frame):
     def __init__(self, root):
         Frame.__init__(self, root)
         
@@ -12,7 +12,7 @@ class LoginScreen(Frame):
 
         root.geometry(ScreenConstants.screen_size)
         root.resizable(False, False)
-        root.wm_title('Login Screen')
+        root.wm_title('Register Screen')
 
         # set the background image of the screen
         bkg_image = Image.open(Images.current_image)
@@ -21,4 +21,4 @@ class LoginScreen(Frame):
         background_label.photo = background_image
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-        # set the login functionality
+        # add register functionality

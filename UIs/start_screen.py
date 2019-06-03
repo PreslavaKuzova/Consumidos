@@ -4,6 +4,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 from utils.constants import *
 from UIs.login_screen import LoginScreen
+from UIs.register_screen import RegisterScreen
 
 class StartScreen(Frame):
     def __init__(self, root):
@@ -33,20 +34,17 @@ class StartScreen(Frame):
         root.wm_title("Consumidos")
 
         # set the background image of the screen
-        bkg_image = Image.open(Images.current_image)
-        background_image = ImageTk.PhotoImage(bkg_image)
+        bkg = Image.open(Images.current_image)
+        logo = Image.open(Images.logo).convert("RGBA")
+        bkg.paste(logo, (150, 200), logo)
+        background_image = ImageTk.PhotoImage(bkg)
         background_label = Label(root, image = background_image)
         background_label.photo = background_image
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
         
-        logo = ImageTk.PhotoImage(file = Images.logo)
-        panel = Label(image = logo)
-        panel.grid(row = 0, column = 1)
-        panel.place(x = 230, y = 200)
-        
         # log in button configuration
         log_in_label = Label(root)
-        log_in_image = ImageTk.PhotoImage(Image.open(Images.log_in_button))
+        log_in_image = ImageTk.PhotoImage(Image.open(Images.log_in_button).convert("RGBA"))
         log_in_label.photo = log_in_image
         log_in_button = Button(text="hello", borderwidth = 0,
                             command=lambda: Frame(LoginScreen(root)).tkraise())
@@ -59,7 +57,7 @@ class StartScreen(Frame):
         register_image = ImageTk.PhotoImage(Image.open(Images.register_button))
         register_label.photo = register_image
         register_button = Button(text = 'hello1', borderwidth = 0, 
-                                command=lambda: Frame(LoginScreen(root)).tkraise())
+                                command=lambda: Frame(RegisterScreen(root)).tkraise())
         register_button.grid(row=1, column=2)
         register_button.place(x = 485, y = 450)
         register_button.config(image = register_image)
