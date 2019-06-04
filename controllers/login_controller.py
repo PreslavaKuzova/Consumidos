@@ -1,6 +1,5 @@
 import sys
 sys.path.insert(0, '/root/Python-101/Consumidos/database')
-
 import queries
 
 class LoginController:
