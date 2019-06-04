@@ -7,11 +7,11 @@ from main_controller import MainController
 
 class Listener:
 	
-	#receiver = MainController.get_user_email()
+	receiver = sys.argv[1]
 
 	@classmethod
 	def send(cls):
-		EmailSender.send_email('ilina.pavllova@gmail.com', 'new test message')
+		EmailSender.send_email(cls.receiver, 'new test message')
 
 if __name__ == '__main__':
 	Listener.send()
