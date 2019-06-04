@@ -1,7 +1,11 @@
+import sys
+import os
 from sqlalchemy import  select,Table, Column, Integer, String, Date, MetaData, ForeignKey, create_engine
 from datetime import datetime, timedelta
 from dataBase import create_table
+sys.path.insert(0, '/root/Python-101/Consumidos/database')
 
+os.chdir('/root/Python-101/Consumidos/database')
 engine = create_engine('sqlite:///test.db', echo = False)
 connection = engine.connect()
 database = MetaData()
@@ -51,13 +55,14 @@ def get_current_user_email(username):
     result = connection.execute(expression, username_to_get)
     return result.fetchone()[0]
 
-def get_current_user_id(username):
+def sign_in_user(username):
     username_to_get = (username,)
     expression = f"""SELECT id
         FROM authentification
         WHERE username == ?;"""
     result = connection.execute(expression, username_to_get)
-    return result.fetchone()[0]
+    if not result.fetchone() is None: 
+        return result.fetchone()[0]
 
 def delete_user(username):
     user_to_delete = (username,)
