@@ -7,10 +7,10 @@ class Cron:
     user = getpass.getuser()
 
     @classmethod
-    def start_cron_job(cls):
+    def start_cron_job_listen_for_emails(cls, receiver):
         cron = CronTab(user=cls.user)
-        job = cron.new(command=f'python3 {cls.path}/listener')
-        job.minute.every(1)
-         
-        cron.write()
-        print('cron job started')
+        if not next(cron.find_command(f'python3 {cls.path}/listener {receiver}'), None):
+            job = cron.new(command=f'python3 {cls.path}/listener {receiver}')
+            job.minute.every(1)
+            cron.write()
+            print('cron job started')
