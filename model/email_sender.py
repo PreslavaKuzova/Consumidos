@@ -6,19 +6,22 @@ from constants import EmailConstants as const
 from queries import *
 
 class EmailSender:
-    
-    def send_simple_email(text):
+
+    @classmethod
+    def send_email(cls, receiver, text):
         server = smtplib.SMTP_SSL(const.smtp_server, const.port)
         server.login(const.sender_email, const.sender_password)
         server.sendmail(
-          const.sender_email, 
-          #TODO : get receiver email from database
-          "ilina.pavllova@gmail.com", 
+          const.sender_email,
+          receiver, 
           f"""\
-Subject: {text} """)
+Subject: Foods expiring!
+{text} """)
         server.quit()
 
-    @classmethod
-    def send_reminder_email(cls, food):
-        #TODO : check if there is expiring food, then send email
-        pass
+    # @classmethod
+    # def send_reminder_email(cls, receiver):
+    #     expiring_foods = db.get_expiring_foods()
+    #     if len(expired_foods) != 0:
+    #         text = f'Don\'t forget to eat {','.join(expired_foods)}, their shelf life expires in one day! Have a nice day :)'
+    #         send_simple_email(receiver, text)

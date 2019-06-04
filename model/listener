@@ -2,9 +2,9 @@ from cron import Cron
 from email_sender import EmailSender
 
 class Listener:
-	@classmethod
-	def send(cls):
-		EmailSender.send_simple_email('new test message')
+	@staticmethod
+	def send():
+		EmailSender.send_email('ilina.pavllova@gmail.com', 'new test message')
 
 if __name__ == '__main__':
 	Listener.send()
