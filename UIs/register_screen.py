@@ -1,6 +1,8 @@
 from tkinter import *
 from PIL import Image, ImageTk, ImageDraw
 from UIs.error_screen import ErrorScreen
+from UIs.user_products_screen import UserProductsScreen
+from controllers.register_controller import RegisterController
 from utils.constants import *
 from utils.errors import *
 
@@ -50,17 +52,18 @@ class RegisterScreen(Frame):
         # placing the new frame in the middle of the screen
         main_frame.place(x = 250, y = 220)
         
-        #TODO config the button photo
+        register_label = Label(root)
+        register_image = ImageTk.PhotoImage(Image.open(Images.log_in_button))
+        register_label.photo = register_image
+        register_button = Button(text="hello", borderwidth = 0, bg = "white",
+                            command=lambda: self.register(root, username_register_entry.get(), email_register_entry.get()))
+        register_button.grid(row=4, column=1)
+        register_button.place(x = 283, y = 430)
+        register_button.config(image = register_image)
+        
+    def register(self, root, username, email):
         try:
-            register_label = Label(root)
-            register_image = ImageTk.PhotoImage(Image.open(Images.log_in_button))
-            register_label.photo = register_image
-            register_button = Button(text="hello", borderwidth = 0, bg = "white",
-                               command=lambda: print(f'{username_register_entry.get()} {email_register_entry.get()}'))
-            register_button.grid(row=4, column=1)
-            register_button.place(x = 283, y = 430)
-            register_button.config(image = register_image)
-
+            RegisterController.sign_up(username, email)
         except UsernameAlreadyExistsError:
             new_root = Toplevel()
             error_message = ErrorScreen(new_root, "Unfortunately this username is already taken!")
@@ -71,7 +74,4 @@ class RegisterScreen(Frame):
             new_root = Toplevel()
             error_message = ErrorScreen(new_root, "Database connection error. Please try again!")
         else:
-            pass
-
-    def register(self, root, username, email):
-        pass
+            Frame(UserProductsScreen(root)).tkraise()
