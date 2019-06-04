@@ -11,9 +11,9 @@ class Images:
     register_button = "utils/buttons/button_register.png"
     logo = "utils/images/consumidos_logo.png"
     login = "utils/images/login_logo.png"
-    provide_username = "utils/images/provide_username.png"
     register = "utils/images/register_logo.png"
     error = "utils/images/error_image.png"
+    user_products = "utils/images/products_logo.png"
     current_image = "utils/images/current.png"
     next_image = "utils/images/next.png"
 
