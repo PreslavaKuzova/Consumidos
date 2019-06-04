@@ -1,9 +1,16 @@
 from cron import Cron
 from email_sender import EmailSender
+import sys, os
+path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, f'{path}/../controllers')
+from main_controller import MainController
 
 class Listener:
-	@staticmethod
-	def send():
+	
+	#receiver = MainController.get_user_email()
+
+	@classmethod
+	def send(cls):
 		EmailSender.send_email('ilina.pavllova@gmail.com', 'new test message')
 
 if __name__ == '__main__':

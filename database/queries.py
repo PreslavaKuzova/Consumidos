@@ -3,9 +3,10 @@ import os
 from sqlalchemy import  select,Table, Column, Integer, String, Date, MetaData, ForeignKey, create_engine
 from datetime import datetime, timedelta
 from dataBase import create_table
-sys.path.insert(0, '/root/Python-101/Consumidos/database')
+path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, f'{path}')
 
-os.chdir('/root/Python-101/Consumidos/database')
+os.chdir(f'{path}')
 engine = create_engine('sqlite:///test.db', echo = False)
 connection = engine.connect()
 database = MetaData()
@@ -53,7 +54,8 @@ def get_current_user_email(username):
         FROM authentification
         WHERE username == ?;"""
     result = connection.execute(expression, username_to_get)
-    return result.fetchone()[0]
+    to_be_returned =result.fetchone()[0] 
+    return to_be_returned
 
 def sign_in_user(username):
     username_to_get = (username,)
@@ -61,8 +63,9 @@ def sign_in_user(username):
         FROM authentification
         WHERE username == ?;"""
     result = connection.execute(expression, username_to_get)
-    if not result.fetchone() is None: 
-        return result.fetchone()[0]
+    to_be_returned = result.fetchone()
+    if not (to_be_returned is None): 
+        return to_be_returned
 
 def delete_user(username):
     user_to_delete = (username,)
