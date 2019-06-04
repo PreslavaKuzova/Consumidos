@@ -35,8 +35,11 @@ class StartScreen(Frame):
 
         # set the background image of the screen
         bkg = Image.open(Images.current_image)
+        bkg_width, bkg_height = bkg.size
         logo = Image.open(Images.logo).convert("RGBA")
-        bkg.paste(logo, (150, 200), logo)
+        logo_width, logo_heigth = logo.size
+        width = int(bkg_width/2 - logo_width/2)
+        bkg.paste(logo, (width, 200), logo)
         background_image = ImageTk.PhotoImage(bkg)
         background_label = Label(root, image = background_image)
         background_label.photo = background_image
