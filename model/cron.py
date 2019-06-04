@@ -8,7 +8,7 @@ class Cron:
 
     @classmethod
     def start_cron_job(cls):
-        cron = CronTab(user='ilina')
+        cron = CronTab(user=cls.user)
         job = cron.new(command=f'python3 {cls.path}/listener')
         job.minute.every(1)
          
