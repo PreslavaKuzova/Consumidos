@@ -1,9 +1,6 @@
 import smtplib, ssl, datetime, sys, os
-path = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, f'{path}/../utils')
-sys.path.insert(0, f'{path}/../database')
-from constants import EmailConstants as const
-from queries import *
+from utils.constants import EmailConstants as const
+from database.queries import *
 
 class EmailSender:
 
