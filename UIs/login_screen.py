@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import Image, ImageTk, ImageDraw
 from utils.constants import *
 from UIs.error_screen import ErrorScreen
+from UIs.user_products_screen import UserProductsScreen
 from utils.errors import *
 
 class LoginScreen(Frame):
@@ -64,4 +65,5 @@ class LoginScreen(Frame):
             new_root = Toplevel()
             error_message = ErrorScreen(new_root, "Database connection error. Please try again!")
         else:
-            pass
+            print("going to the new thing")
+            Frame(UserProductsScreen(root)).tkraise()
