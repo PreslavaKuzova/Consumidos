@@ -13,3 +13,9 @@ class Images:
     register = "utils/images/register_logo.png"
     current_image = "utils/images/current.png"
     next_image = "utils/images/next.png"
+
+class EmailConstants:
+    port = 465
+    smpt_server = "smtp.gmail.com" 
+    sender_email = "consumidos.info@gmail.com"
+    sender_password = "presiilinalyudmi123"

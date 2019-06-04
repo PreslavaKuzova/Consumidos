@@ -1,8 +1,11 @@
 from crontab import CronTab
-import os
+import os, getpass
 
 class Cron:
+
     path = os.path.dirname(os.path.abspath(__file__))
+    user = getpass.getuser()
+
     @classmethod
     def start_cron_job(cls):
         cron = CronTab(user='ilina')
