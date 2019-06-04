@@ -53,7 +53,8 @@ def get_current_user_email(username):
         FROM authentification
         WHERE username == ?;"""
     result = connection.execute(expression, username_to_get)
-    return result.fetchone()[0]
+    to_be_returned =result.fetchone()[0] 
+    return to_be_returned
 
 def sign_in_user(username):
     username_to_get = (username,)
@@ -61,8 +62,9 @@ def sign_in_user(username):
         FROM authentification
         WHERE username == ?;"""
     result = connection.execute(expression, username_to_get)
-    if not result.fetchone() is None: 
-        return result.fetchone()[0]
+    to_be_returned = result.fetchone()
+    if not (to_be_returned is None): 
+        return to_be_returned
 
 def delete_user(username):
     user_to_delete = (username,)
