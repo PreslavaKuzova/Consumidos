@@ -1,5 +1,6 @@
-import sys
-sys.path.insert(0, '/root/Python-101/Consumidos/database')
+import sys, os
+path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, f'{path}/../database')
 
 import dataBase
 import queries
