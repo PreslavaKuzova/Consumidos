@@ -2,6 +2,7 @@ from crontab import CronTab
 import os, getpass
 
 class Cron:
+
     path = os.path.dirname(os.path.abspath(__file__))
     user = getpass.getuser()
 

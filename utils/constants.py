@@ -16,3 +16,9 @@ class Images:
     error = "utils/images/error_image.png"
     current_image = "utils/images/current.png"
     next_image = "utils/images/next.png"
+
+class EmailConstants:
+    port = 465
+    smtp_server = "smtp.gmail.com" 
+    sender_email = "consumidos.info@gmail.com"
+    sender_password = "presiilinalyudmi123"

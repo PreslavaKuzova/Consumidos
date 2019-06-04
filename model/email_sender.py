@@ -1,12 +1,17 @@
-import smtplib, ssl, datetime
+import smtplib, ssl, datetime, sys, os
+path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, f'{path}/../utils')
+sys.path.insert(0, f'{path}/../database')
+from constants import EmailConstants as const
+from queries import *
 
 class EmailSender:
     
     def send_simple_email(text):
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.login("consumidos.info@gmail.com", "presiilinalyudmi123")
+        server = smtplib.SMTP_SSL(const.smtp_server, const.port)
+        server.login(const.sender_email, const.sender_password)
         server.sendmail(
-          "consumidos.info@gmail.com", 
+          const.sender_email, 
           #TODO : get receiver email from database
           "ilina.pavllova@gmail.com", 
           f"""\
