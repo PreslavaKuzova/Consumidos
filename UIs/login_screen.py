@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import Image, ImageTk, ImageDraw
 from utils.constants import *
 from UIs.error_screen import ErrorScreen
+from utils.errors import *
 
 class LoginScreen(Frame):
     def __init__(self, root):
@@ -47,10 +48,17 @@ class LoginScreen(Frame):
             log_in_button = Button(text="hello", borderwidth = 0,
                                command=lambda: print(f'{username_login_entry.get()} {password_login_entry.get()}'))
             log_in_button.grid(row=4, column=1)
-        except Exception:
+        except UsernameAlreadyExistsError:
             new_root = Toplevel()
-            error_message = ErrorScreen(new_root, "Congrats!")
+            error_message = ErrorScreen(new_root, "Unfortunately this username is already taken!")
+        except EmailAlreadyExistsError:
+            new_root = Toplevel()
+            error_message = ErrorScreen(new_root, "Sorry! Somebody already uses this email.")
+        except DatabaseConnectionError:
+            new_root = Toplevel()
+            error_message = ErrorScreen(new_root, "Database connection error. Please try again!")
         else:
-            pass
+            new_root = Toplevel()
+            error_message = ErrorScreen(new_root, "Database connection error. Please try again!")
 
         
