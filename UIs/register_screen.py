@@ -1,6 +1,8 @@
 from tkinter import *
 from PIL import Image, ImageTk, ImageDraw
+from UIs.error_screen import ErrorScreen
 from utils.constants import *
+from utils.errors import *
 
 class RegisterScreen(Frame):
     def __init__(self, root):
@@ -29,3 +31,44 @@ class RegisterScreen(Frame):
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         # add register functionality
+        main_frame = Frame(root, bg = "white")
+        main_frame.grid(row=0, column=0, rowspan=3, columnspan=3)
+        username = Label(main_frame, text="Please, choose username:", bg='white', 
+                font = ("Courier", 15), pady = 20)
+        username.grid(row = 0, column = 1)
+        
+        username_register_entry = Entry(main_frame, bg='white', font = ("Courier", 18))
+        username_register_entry.grid(row = 1, column = 1)
+        
+        email = Label(main_frame, text="Please, enter your email:", bg='white', 
+                font = ("Courier", 15), pady = 20)
+        email.grid(row = 2, column = 1)
+        
+        email_register_entry = Entry(main_frame, bg='white', font = ("Courier", 18))
+        email_register_entry.grid(row = 3, column = 1)
+
+        # placing the new frame in the middle of the screen
+        main_frame.place(x = 250, y = 220)
+        
+        #TODO config the button photo
+        try:
+            register_label = Label(root)
+            register_image = ImageTk.PhotoImage(Image.open(Images.log_in_button))
+            register_label.photo = register_image
+            register_button = Button(text="hello", borderwidth = 0, bg = "white",
+                               command=lambda: print(f'{username_register_entry.get()} {email_register_entry.get()}'))
+            register_button.grid(row=4, column=1)
+            register_button.place(x = 283, y = 430)
+            register_button.config(image = register_image)
+
+        except UsernameAlreadyExistsError:
+            new_root = Toplevel()
+            error_message = ErrorScreen(new_root, "Unfortunately this username is already taken!")
+        except EmailAlreadyExistsError:
+            new_root = Toplevel()
+            error_message = ErrorScreen(new_root, "Sorry! Somebody already uses this email.")
+        except DatabaseConnectionError:
+            new_root = Toplevel()
+            error_message = ErrorScreen(new_root, "Database connection error. Please try again!")
+        else:
+            pass

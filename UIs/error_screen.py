@@ -9,6 +9,8 @@ class ErrorScreen(Frame):
         root.geometry(ScreenConstants.error_screen_size)
         root.resizable(False, False)
         root.wm_title('Oops. Something went wrong!')
+        root.configure(background = "#D3D3D3")
 
-        password_label = Label(root, text = message)
-        password_label.grid(row = 0, column = 1)
+        error_message = Message(root, text= message, font = ("Courier", 11), 
+                background = "#D3D3D3", justify="center", pady = 50)
+        error_message.pack()
