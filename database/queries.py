@@ -2,11 +2,8 @@ import sys
 import os
 from sqlalchemy import  select,Table, Column, Integer, String, Date, MetaData, ForeignKey, create_engine
 from datetime import datetime, timedelta
-from dataBase import create_table
-path = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, f'{path}')
+from database.dataBase import create_table
 
-os.chdir(f'{path}')
 engine = create_engine('sqlite:///test.db', echo = False)
 connection = engine.connect()
 database = MetaData()

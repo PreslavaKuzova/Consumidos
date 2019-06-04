@@ -1,6 +1,7 @@
 from sqlalchemy import  select,Table, Column, Integer, String, Date, MetaData, ForeignKey, create_engine
 from datetime import datetime, timedelta
 
+
 def create_table():
     engine = create_engine('sqlite:///test.db', echo = False)
     connection = engine.connect()

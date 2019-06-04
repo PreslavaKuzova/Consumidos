@@ -72,3 +72,6 @@ class RegisterScreen(Frame):
             error_message = ErrorScreen(new_root, "Database connection error. Please try again!")
         else:
             pass
+
+    def register(self, root, username, email):
+        pass

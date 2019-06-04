@@ -4,6 +4,7 @@ from utils.constants import *
 from UIs.error_screen import ErrorScreen
 from UIs.user_products_screen import UserProductsScreen
 from utils.errors import *
+from controllers.login_controller import LoginController
 
 class LoginScreen(Frame):
     def __init__(self, root):
@@ -45,16 +46,19 @@ class LoginScreen(Frame):
         # placing the new frame in the middle of the screen
         main_frame.place(x = 215, y = 270)
         
-        #TODO config the button photo
+        
+        log_in_label = Label(root)
+        log_in_image = ImageTk.PhotoImage(Image.open(Images.log_in_button))
+        log_in_label.photo = log_in_image
+        log_in_button = Button(text="hello", borderwidth = 0, bg = "white",
+                            command=lambda: self.login(root, username_login_entry.get()))
+        log_in_button.grid(row=4, column=1)
+        log_in_button.place(x = 283, y = 430)
+        log_in_button.config(image = log_in_image)
+
+    def login(self, root, username):
         try:
-            log_in_label = Label(root)
-            log_in_image = ImageTk.PhotoImage(Image.open(Images.log_in_button))
-            log_in_label.photo = log_in_image
-            log_in_button = Button(text="hello", borderwidth = 0, bg = "white",
-                               command=lambda: print(f'{username_login_entry.get()}'))
-            log_in_button.grid(row=4, column=1)
-            log_in_button.place(x = 283, y = 430)
-            log_in_button.config(image = log_in_image)
+            LoginController.sign_in(username)
         except InvalidUsernameError:
             new_root = Toplevel()
             error_message = ErrorScreen(new_root, "No such username! Please register!")
@@ -62,6 +66,4 @@ class LoginScreen(Frame):
             new_root = Toplevel()
             error_message = ErrorScreen(new_root, "Database connection error. Please try again!")
         else:
-            pass
-            # print("going to the new thing")
-            # Frame(UserProductsScreen(root)).tkraise()
+            Frame(UserProductsScreen(root)).tkraise()
