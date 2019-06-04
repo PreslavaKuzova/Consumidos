@@ -62,5 +62,6 @@ class LoginScreen(Frame):
             new_root = Toplevel()
             error_message = ErrorScreen(new_root, "Database connection error. Please try again!")
         else:
-            print("going to the new thing")
-            Frame(UserProductsScreen(root)).tkraise()
+            pass
+            # print("going to the new thing")
+            # Frame(UserProductsScreen(root)).tkraise()
