@@ -47,9 +47,9 @@ class StartScreen(Frame):
         
         # log in button configuration
         log_in_label = Label(root)
-        log_in_image = ImageTk.PhotoImage(Image.open(Images.log_in_button).convert("RGBA"))
+        log_in_image = ImageTk.PhotoImage(Image.open(Images.log_in_button))
         log_in_label.photo = log_in_image
-        log_in_button = Button(text="hello", borderwidth = 0,
+        log_in_button = Button(borderwidth = 0,
                             command=lambda: Frame(LoginScreen(root)).tkraise())
         log_in_button.grid(row=1, column=1)
         log_in_button.place(x = 85, y = 450)
@@ -59,7 +59,7 @@ class StartScreen(Frame):
         register_label = Label(root)
         register_image = ImageTk.PhotoImage(Image.open(Images.register_button))
         register_label.photo = register_image
-        register_button = Button(text = 'hello1', borderwidth = 0, 
+        register_button = Button(borderwidth = 0, 
                                 command=lambda: Frame(RegisterScreen(root)).tkraise())
         register_button.grid(row=1, column=2)
         register_button.place(x = 485, y = 450)

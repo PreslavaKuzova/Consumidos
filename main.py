@@ -7,7 +7,7 @@ from UIs.login_screen import LoginScreen
 class App:
     @classmethod
     def start(cls):
-        Cron.start_cron_job()
+        #Cron.start_cron_job()
         root = Tk()
         start_screen = Frame(StartScreen(root))
         start_screen.tkraise()

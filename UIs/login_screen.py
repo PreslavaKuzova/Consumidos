@@ -15,7 +15,7 @@ class LoginScreen(Frame):
         root.geometry(ScreenConstants.screen_size)
         root.resizable(False, False)
         root.wm_title('Login Screen')
-
+    
         # set the background image of the screen, draw the box and paste the transparent logo
         bkg_image = Image.open(Images.current_image)
         bkg_width, bkg_height = bkg_image.size
@@ -31,23 +31,29 @@ class LoginScreen(Frame):
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         username = ""
-        password = ""
 
         # set the login functionality
-        username_label = Label(root, text="Username * ", bg='white')
-        username_label.grid(row = 0, column = 1)
-        username_login_entry = Entry(root, bg='white')
+        main_frame = Frame(root, bg = "white")
+        main_frame.grid(row=0, column=0, rowspan=3, columnspan=3)
+        username = Label(main_frame, text="Please, provide your username: ", bg='white', 
+                font = ("Courier", 15), pady = 20)
+        username.grid(row = 0, column = 1)
+        username_login_entry = Entry(main_frame, bg='white', font = ("Courier", 18))
         username_login_entry.grid(row = 1, column = 1)
+
+        # placing the new frame in the middle of the screen
+        main_frame.place(x = 215, y = 270)
         
-        password_label = Label(root, text="Password * ", bg='white')
-        password_label.grid(row = 2, column = 1)
-        password_login_entry = Entry(root, show='*', bg='white')
-        password_login_entry.grid(row = 3, column = 1)
-        
+        #TODO config the button photo
         try:
-            log_in_button = Button(text="hello", borderwidth = 0,
-                               command=lambda: print(f'{username_login_entry.get()} {password_login_entry.get()}'))
+            log_in_label = Label(root)
+            log_in_image = ImageTk.PhotoImage(Image.open(Images.log_in_button))
+            log_in_label.photo = log_in_image
+            log_in_button = Button(text="hello", borderwidth = 0, bg = "white",
+                               command=lambda: print(f'{username_login_entry.get()}'))
             log_in_button.grid(row=4, column=1)
+            log_in_button.place(x = 283, y = 430)
+            log_in_button.config(image = log_in_image)
         except UsernameAlreadyExistsError:
             new_root = Toplevel()
             error_message = ErrorScreen(new_root, "Unfortunately this username is already taken!")
@@ -58,7 +64,4 @@ class LoginScreen(Frame):
             new_root = Toplevel()
             error_message = ErrorScreen(new_root, "Database connection error. Please try again!")
         else:
-            new_root = Toplevel()
-            error_message = ErrorScreen(new_root, "Database connection error. Please try again!")
-
-        
+            pass
