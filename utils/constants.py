@@ -16,6 +16,6 @@ class Images:
 
 class EmailConstants:
     port = 465
-    smpt_server = "smtp.gmail.com" 
+    smtp_server = "smtp.gmail.com" 
     sender_email = "consumidos.info@gmail.com"
     sender_password = "presiilinalyudmi123"
