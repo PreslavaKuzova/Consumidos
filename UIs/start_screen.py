@@ -14,19 +14,7 @@ class StartScreen(Frame):
         self.current_background = Images.current_image
         self.next_background = Images.next_image
 
-        #gets random background, to be removed and added to the controller later
-        url = 'https://source.unsplash.com/800x600/?food'
-        try:
-            response = requests.get(url, stream=True)
-            if response.status_code is 200:
-                shutil.copyfile(self.next_background, self.current_background)
-                with open(self.next_background, 'wb') as out_file:
-                    shutil.copyfileobj(response.raw, out_file)
-                del response
-                im = Image.open(self.current_background)
-                im.save(self.current_background, "PNG")
-        except:
-            self.is_offline = True
+        self.get_random_background()
 
         # setting up the screen parameters
         root.geometry(ScreenConstants.screen_size)
@@ -64,3 +52,17 @@ class StartScreen(Frame):
         register_button.grid(row=1, column=2)
         register_button.place(x = 485, y = 450)
         register_button.config(image = register_image)
+
+    def get_random_background(self):
+        url = 'https://source.unsplash.com/800x600/?food'
+        try:
+            response = requests.get(url, stream=True)
+            if response.status_code is 200:
+                shutil.copyfile(self.next_background, self.current_background)
+                with open(self.next_background, 'wb') as out_file:
+                    shutil.copyfileobj(response.raw, out_file)
+                del response
+                im = Image.open(self.current_background)
+                im.save(self.current_background, "PNG")
+        except:
+            self.is_offline = True

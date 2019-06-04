@@ -55,12 +55,9 @@ class LoginScreen(Frame):
             log_in_button.grid(row=4, column=1)
             log_in_button.place(x = 283, y = 430)
             log_in_button.config(image = log_in_image)
-        except UsernameAlreadyExistsError:
+        except InvalidUsernameError:
             new_root = Toplevel()
-            error_message = ErrorScreen(new_root, "Unfortunately this username is already taken!")
-        except EmailAlreadyExistsError:
-            new_root = Toplevel()
-            error_message = ErrorScreen(new_root, "Sorry! Somebody already uses this email.")
+            error_message = ErrorScreen(new_root, "No such username! Please register!")
         except DatabaseConnectionError:
             new_root = Toplevel()
             error_message = ErrorScreen(new_root, "Database connection error. Please try again!")

@@ -9,3 +9,7 @@ class DatabaseConnectionError(Exception):
 class EmailAlreadyExistsError(Exception):
     #raised when the email already exists
     pass
+
+class InvalidUsernameError(Exception):
+    #raised when there is no such username in the database
+    pass
